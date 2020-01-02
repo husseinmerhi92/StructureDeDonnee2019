@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iostream>
 
 using namespace std;
 
@@ -87,6 +88,26 @@ void AfficherInfix(arbre* a, bool premiere)
     }
 }
 
+void AfficherPrefix(arbre* a)
+{
+    if (a != NULL)
+    {
+        cout << a->cle;
+        AfficherPrefix(a->gauche);
+        AfficherPrefix(a->droite);
+    }
+}
+
+void AfficherPostfix(arbre* a)
+{
+    if (a != NULL)
+    {
+        AfficherPostfix(a->gauche);
+        AfficherPostfix(a->droite);
+        cout << a->cle;
+    }
+}
+
 // 2-
 double Eval(arbre* a)
 {
@@ -135,11 +156,7 @@ void ParcoursProfondeur(arbre* a)
 {
     if (a != NULL)
     {
-        // Mark as visitied
-
-        // Print it
         cout << a->cle;
-        // Goes for adjacents
         ParcoursProfondeur(a->gauche);
         ParcoursProfondeur(a->droite);
     }
@@ -199,6 +216,10 @@ int main()
     curr->gauche->cle = '6';
     curr->droite->cle = '3';
 
+    cout << "Infix: "; AfficherInfix(a, true); cout << endl;
+    cout << "Prefix: "; AfficherPrefix(a); cout << endl;
+    cout << "Postfix: "; AfficherPostfix(a); cout << endl;
+
     if (ValiderArbre(a))
     {
         cout << "cet arbre est valide" << endl;
@@ -209,7 +230,7 @@ int main()
     }
 
     AfficherInfix(a, true); cout << " = " << Eval(a) << endl;
-    ParcoursProfondeur(a); cout << endl;
+    cout << "Parcours Par Profondeur "; ParcoursProfondeur(a); cout << endl;
 
     cout << "Arbre Initial : "; AfficherInfix(a, true); cout << endl;
     a->gauche = RotationGauche(a->gauche);

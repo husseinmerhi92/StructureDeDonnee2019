@@ -33,6 +33,11 @@ int FacRec(int n)
 	}
 }
 
+int DeriveeXn(int x, int n)
+{
+	return n * XnRec(x, n - 1);
+}
+
 // b-
 double S1(int x, int n)
 {
